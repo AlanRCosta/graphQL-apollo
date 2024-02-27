@@ -1,25 +1,13 @@
-const user = () => {
-  return {
-    id: 'sdhjkasda-5d74sa5',
-    name: 'Alan',
-  };
+const user = async (_, { id }, { getUsers }) => {
+  const response = await getUsers('/' + id);
+  return response.json();
 };
 
-const users = () => {
-  return [
-    {
-      id: 'sdhjkasda-5d74sa5',
-      name: 'Alan',
-    },
-    {
-      id: 'sdhjkasda-558fh87g',
-      name: 'Lorena',
-    },
-    {
-      id: 'sdhjkasda-89s612g5',
-      name: 'Sansa',
-    },
-  ];
+const users = async (_, { input }, { getUsers }) => {
+  const apiFiltersInput = new URLSearchParams(input);
+  console.log(apiFiltersInput.toString());
+  const response = await getUsers('?' + apiFiltersInput);
+  return response.json();
 };
 
 export const userResolvers = {

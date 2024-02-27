@@ -1,29 +1,12 @@
-const post = () => {
-  return {
-    id: 'sdhjkasda-5d74sa5',
-    title: 'Isso é um post.',
-  };
+const post = async (_, { id }, { getPosts }) => {
+  const response = await getPosts('/' + id);
+  return response.json();
 };
 
-const posts = () => {
-  return [
-    {
-      id: 'sdhjkasda-5d74sa5',
-      title: 'Isso',
-    },
-    {
-      id: 'sdhjkasda-558fh87g',
-      title: 'é',
-    },
-    {
-      id: 'sdhjkasda-89s612g5',
-      title: 'um',
-    },
-    {
-      id: 'sdhjkasda-2454fds6',
-      title: 'post.',
-    },
-  ];
+const posts = async (_, { input }, { getPosts }) => {
+  const apiFiltersInput = new URLSearchParams(input);
+  const response = await getPosts('/?' + apiFiltersInput);
+  return response.json();
 };
 
 export const postResolvers = {
